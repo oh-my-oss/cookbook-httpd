@@ -1,0 +1,12 @@
+<VirtualHost *:80>
+    ServerName <%= node['server_name'] %>
+    DocumentRoot /var/www/sites/<%= node['server_name'] %>/htdocs
+    CustomLog   logs/vhost_access_log combined
+    ErrorLog    logs/vhost_error_log
+    <Directory "/var/www/sites">
+        AllowOverride All
+        Options FollowSymlinks
+        Require all granted
+    </Directory>
+    Header set Strict-Transport-Security "max-age=315360000; includeSubDomains"
+</VirtualHost>

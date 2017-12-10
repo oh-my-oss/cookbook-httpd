@@ -1,0 +1,19 @@
+Listen 443 https
+<VirtualHost *:443>
+    ServerName <%= node['server_name'] %>
+    DocumentRoot /var/www/sites/<%= node['server_name'] %>/htdocs
+    CustomLog   logs/vhost_ssl_access_log combined
+    ErrorLog    logs/vhost_ssl_error_log
+    Header set Strict-Transport-Security "max-age=315360000; includeSubDomains"
+    LogLevel warn
+    SSLEngine on
+    SSLProtocol all -SSLv2
+    SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM:+LOW
+    SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+    SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+    <Directory "/var/www/sites">
+        AllowOverride All
+        Options FollowSymlinks
+        Require all granted
+    </Directory>
+</VirtualHost>
