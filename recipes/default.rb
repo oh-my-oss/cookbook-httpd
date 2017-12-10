@@ -5,11 +5,19 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 package "httpd24" do
-      action :install
+    action :install
 end
 
 service "httpd" do
-      action [ :enable, :start ]
+    action [ :enable, :start ]
+end
+
+directory "/var/www/sites/" + node['server_name'] + "/htdocs" do
+    owner "deploy"
+    group "deploy"
+    mode 0755
+    recursive true
+    action :create
 end
 
 file "/etc/httpd/conf.d/welcome.conf" do
