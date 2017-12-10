@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+include_recipe 'base::default'
+
 package "httpd24" do
     action :install
 end
